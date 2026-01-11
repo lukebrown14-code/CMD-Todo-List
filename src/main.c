@@ -74,27 +74,6 @@ int write_array_binary(const StringList_t *list) {
   return 0;
 }
 
-// StringList_t create_array_binary(int initial_capacity) {
-//   StringList_t list = {0};
-
-//   list.capacity = initial_capacity > 0 ? initial_capacity : 4;
-//   list.size = 0;
-//   list.item = malloc(list.capacity * sizeof(char *));
-
-//   if (!list.item) {
-//     perror("Initial allocation failed\n");
-//     list.capacity = 0;
-//   }
-
-//   FILE *file = fopen(FILE_NAME, "wb");
-//   if (!file) {
-//     perror("Cannot create file");
-//   }
-
-//   fclose(file);
-//   return list;
-// }
-
 StringList_t read_array_binary() {
   StringList_t list = {0};
 
