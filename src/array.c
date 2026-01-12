@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 static int resize_array(StringList_t *list, int new_capacity) {
   if (new_capacity <= list->capacity)
     return 0;
@@ -49,7 +48,7 @@ int add_array(StringList_t *list, const char *str) {
   return 0;
 }
 
-int write_array_binary(const StringList_t *list, const char *filename ) {
+int write_array_binary(const StringList_t *list, const char *filename) {
   FILE *file = fopen(filename, "wb");
   if (!file) {
     perror("Failed to open file for writing");
@@ -121,7 +120,10 @@ void print_array(const StringList_t *list) {
     printf("List is empty \n");
     return;
   }
+
+  printf("-----------------------\n");
   for (int i = 0; i < list->size; i++) {
     printf("%3d. %s\n", i + 1, list->item[i]);
   }
+  printf("-----------------------\n");
 }
