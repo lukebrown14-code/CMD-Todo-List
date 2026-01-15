@@ -9,22 +9,22 @@ all: $(TARGET)
 
 # Link the executable
 $(TARGET): $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 # Compile source files to object files
 %.o: %.c array.h
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean build artifacts
 clean:
-	@rm -f $(OBJECTS) $(TARGET) $(TARGET).exe
+	rm -f $(OBJECTS) $(TARGET) $(TARGET).exe
 
 # Phony targets (not real files)
 .PHONY: all clean
 
 # Run the program and pass ALL extra make arguments directly
 run: $(TARGET)
-	@./$(TARGET) $(filter-out $@,$(MAKECMDGOALS))
+	./$(TARGET) $(filter-out $@,$(MAKECMDGOALS))
 
 # Prevent make from treating arguments as targets
 %:

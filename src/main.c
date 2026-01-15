@@ -10,11 +10,10 @@ int main(int argc, char *argv[]) {
 
   if (argc < 2) {
     printf("Usage:\n");
-    printf("  %s print                    - show current list\n", argv[0]);
-    printf("  %s add \"Buy milk\"           - add new item\n", argv[0]);
-    printf("  %s remove 2                 - remove item (1-based index)\n",
-           argv[0]);
-    printf("  %s clear                    - delete all\n", argv[0]);
+    printf("  print                    - show current list\n");
+    printf("  add \"Buy milk\"           - add new item\n");
+    printf("  remove 2                 - remove item (1-based index)\n");
+    printf("  clear                    - delete all\n");
     return 1;
   }
 
@@ -40,8 +39,9 @@ int main(int argc, char *argv[]) {
     }
 
     task[0] = '\0';
-    for(int i = 2; i < argc; i++){
-      if(i > 2) strcat(task, " ");
+    for (int i = 2; i < argc; i++) {
+      if (i > 2)
+        strcat(task, " ");
       strcat(task, argv[i]);
     }
 
