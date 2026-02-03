@@ -1,4 +1,5 @@
 #include "array.h"
+#include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,7 +73,8 @@ StringList_t read_array_binary(const char *filename) {
 
   FILE *file = fopen(filename, "rb");
   if (!file) {
-    perror("Failed to open file");
+    if (errno != ENOENT)
+      perror("Failed to open file");
     return list;
   }
 

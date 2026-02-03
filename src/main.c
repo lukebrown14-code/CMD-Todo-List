@@ -1,10 +1,10 @@
 #include "array.h"
+#include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define FILE_NAME "file.bin"
+#include <sys/stat.h>
 
 int main(int argc, char *argv[]) {
 
@@ -17,7 +17,20 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  StringList_t list = read_array_binary(FILE_NAME);
+  const char *home = getenv("HOME");
+  if (!home) {
+    fprintf(stderr, "HOME environment variable not set\n");
+    return 1;
+  }
+
+  char dir_path[PATH_MAX];
+  snprintf(dir_path, sizeof(dir_path), "%s/.todo", home);
+  mkdir(dir_path, 0755);
+
+  char file_path[PATH_MAX];
+  snprintf(file_path, sizeof(file_path), "%s/.todo/data.bin", home);
+
+  StringList_t list = read_array_binary(file_path);
 
   const char *cmd = argv[1];
 
@@ -52,7 +65,7 @@ int main(int argc, char *argv[]) {
     printf("Added: %s\n", task);
 
     free(task);
-    write_array_binary(&list, FILE_NAME);
+    write_array_binary(&list, file_path);
 
   }
 
@@ -63,7 +76,7 @@ int main(int argc, char *argv[]) {
       memmove(&list.item[idx], &list.item[idx + 1],
               (list.size - idx - 1) * sizeof(char *));
       list.size--;
-      write_array_binary(&list, FILE_NAME);
+      write_array_binary(&list, file_path);
       printf("Item %d removed \n", idx + 1);
     } else {
       printf("Invalid index \n");
@@ -72,7 +85,7 @@ int main(int argc, char *argv[]) {
 
   else if (strcmp(cmd, "clear") == 0) {
     free_array(&list);
-    remove(FILE_NAME);
+    remove(file_path);
     printf("List cleared\n");
   }
 
