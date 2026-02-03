@@ -12,7 +12,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 # Compile source files to object files
-%.o: %.c array.h
+%.o: %.c src/array.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean build artifacts

@@ -28,22 +28,25 @@ int main(int argc, char *argv[]) {
   else if (strcmp(cmd, "add") == 0 && argc >= 3) {
 
     size_t total_len = 0;
-    for (int i = 0; i < argc; i++) {
-      total_len = strlen(argv[i]) + 1;
+    for (int i = 2; i < argc; i++) {
+      total_len += strlen(argv[i]) + 1;
     }
 
-    char *task = malloc(total_len + 1);
+    char *task = malloc(total_len);
     if (!task) {
       perror("malloc failed");
       return 1;
     }
 
-    task[0] = '\0';
+    size_t offset = 0;
     for (int i = 2; i < argc; i++) {
       if (i > 2)
-        strcat(task, " ");
-      strcat(task, argv[i]);
+        task[offset++] = ' ';
+      size_t len = strlen(argv[i]);
+      memcpy(task + offset, argv[i], len);
+      offset += len;
     }
+    task[offset] = '\0';
 
     add_array(&list, task);
     printf("Added: %s\n", task);
@@ -74,10 +77,10 @@ int main(int argc, char *argv[]) {
   }
 
   else {
-    printf("Unknow command: %s\n", cmd);
+    printf("Unknown command: %s\n", cmd);
   }
 
   free_array(&list);
 
-  return 1;
+  return 0;
 }

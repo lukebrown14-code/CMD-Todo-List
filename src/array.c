@@ -108,7 +108,7 @@ StringList_t read_array_binary(const char *filename) {
   return list;
 
 corrupt:
-  fprintf(stderr, "File appers to be corrupted\n");
+  fprintf(stderr, "File appears to be corrupted\n");
   free_array(&list);
   if (file)
     fclose(file);
