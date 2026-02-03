@@ -5,4 +5,5 @@ build/
 *.app 
 *.bin
 todo
+.claude/
 
